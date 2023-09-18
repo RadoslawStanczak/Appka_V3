@@ -3,46 +3,45 @@ package com.example.appka_v3
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import com.example.appka_v3.ui.theme.Appka_V3Theme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
+import com.example.appka_v3.ui.theme.screens.DetailScreen
+import com.example.appka_v3.ui.theme.screens.HomeScreen
+import com.example.appka_v3.ui.theme.screens.SettingsScreen
 
 
 // to jest takie jakby View
 class MainActivity : ComponentActivity() {
-    private val mainVm by viewModels<MainViewModel>()  // dzięki mainVm uzyskujemy dostęp do klasy MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Appka_V3Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val randomNumber = mainVm.modelData.collectAsState()  // obserujemy modelData i zamieniamy StateFlow na State, przy każdej aktualizacji StateFlow wywoła rekompozycję
-                    RandomNumberText(number = randomNumber.value) // przyjmujemy wartość Int, a nie StateOfInt
+            val navController = rememberNavController()
+
+            NavHost(navController = navController, startDestination = "home" ){
+                composable("home"){
+                    HomeScreen(onClick = {
+                        navController.navigate(it) // nawigacja przyjdzie z onClicka z innych plików, bo funkcje zwracają onClicka z argumentem jako string
+                    })
+                }
+                
+                composable("detail"){
+                    DetailScreen()
+                }
+                composable("settings"){
+                    SettingsScreen(onClick = {
+                        navController.navigate(
+                            route = it,
+                            navOptions = navOptions {
+                                popUpTo("home"){ inclusive = true }
+                        })
+                    })
                 }
             }
+
         }
     }
-}
-@Composable
-fun RandomNumberText(number: Int) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Text(text = "Losowa Liczba: $number")
-    }
+
+
 }
