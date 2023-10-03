@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun HomeScreen(onClick: (String) -> Unit){
@@ -20,21 +21,47 @@ fun HomeScreen(onClick: (String) -> Unit){
         .padding(1.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Home")
-        Button( modifier = Modifier
-            .width(width = 160.dp)
-            .height(height = 60.dp)
-            .padding(5.dp),
-            onClick = { onClick("detail") }) {
-            Text(text = "Detail")
-            
+        Column(modifier = Modifier
+            .weight(1F)
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+
+            Text(text = "Home", fontSize = 30.sp)
         }
-        Button( modifier = Modifier
-            .width(width = 160.dp)
-            .height(height = 60.dp)
-            .padding(5.dp),
-            onClick = { onClick("settings") }) {
-            Text(text = "Settings")
+        Column(modifier = Modifier
+            .weight(1F)
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Button( modifier = Modifier
+                .width(width = 180.dp)
+                .height(height = 60.dp)
+                .padding(5.dp),
+                onClick = { onClick("hackathon") }) {
+
+                Text(text = "Hackathon")
+            }
+
+            Button( modifier = Modifier
+                .width(width = 180.dp)
+                .height(height = 60.dp)
+                .padding(5.dp),
+                onClick = { onClick("detail") }) {
+
+                Text(text = "Detail", fontSize = 15.sp)
+
+            }
+            Button( modifier = Modifier
+                .width(width = 180.dp)
+                .height(height = 60.dp)
+                .padding(5.dp),
+                onClick = { onClick("settings") }) {
+
+                Text(text = "Settings", fontSize = 15.sp)
+            }
         }
+
+
     }
 }

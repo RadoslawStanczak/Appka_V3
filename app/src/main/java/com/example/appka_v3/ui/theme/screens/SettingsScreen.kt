@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun SettingsScreen(onClick: (String) -> Unit){
@@ -30,33 +31,47 @@ fun SettingsScreen(onClick: (String) -> Unit){
         .padding(1.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Settings")
-        Button(modifier = Modifier
-            .width(width = 160.dp)
-            .height(height = 60.dp)
-            .padding(5.dp),
-            onClick = { onClick("home") }) {
-            Text(text = "Home")
+        Column(modifier = Modifier
+            .weight(1F)
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "Settings", fontSize = 30.sp)
         }
-        Button( modifier = Modifier
-            .width(width = 160.dp)
-            .height(height = 60.dp)
-            .padding(5.dp),
-            onClick = {
-                enabled = !enabled  // jeśli enabled to zrób enabled = false i na odwrót
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (enabled) MaterialTheme.colorScheme.surfaceTint else Color.Gray,  // kolor przycisku
-                contentColor = if (enabled) MaterialTheme.colorScheme.inverseOnSurface else Color.DarkGray)  // kolor textu w przycisku
-            ) {
-                Text(text = "Jakość HD")
+        Column(modifier = Modifier
+            .weight(1F)
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Button(modifier = Modifier
+                .width(width = 180.dp)
+                .height(height = 60.dp)
+                .padding(5.dp),
+                onClick = { onClick("home") }) {
+                Text(text = "Home", fontSize = 15.sp)
             }
-        Button(modifier = Modifier
-            .width(width = 180.dp)
-            .height(height = 60.dp)
-            .padding(5.dp),
-            onClick = { onClick("updates") }) {
-                Text(text = "Check for updates")
+            Button( modifier = Modifier
+                .width(width = 180.dp)
+                .height(height = 60.dp)
+                .padding(5.dp),
+                onClick = {
+                    enabled = !enabled  // jeśli enabled to zrób enabled = false i na odwrót
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (enabled) MaterialTheme.colorScheme.surfaceTint else Color.Gray,  // kolor przycisku
+                    contentColor = if (enabled) MaterialTheme.colorScheme.inverseOnSurface else Color.DarkGray)  // kolor textu w przycisku
+            ) {
+                Text(text = "Jakość HD", fontSize = 15.sp)
+            }
+            Button(modifier = Modifier
+                .width(width = 180.dp)
+                .height(height = 60.dp)
+                .padding(5.dp),
+                onClick = { onClick("updates") }) {
+                Text(text = "Check for updates", fontSize = 15.sp)
+            }
         }
-        }
+
+
+    }
 }

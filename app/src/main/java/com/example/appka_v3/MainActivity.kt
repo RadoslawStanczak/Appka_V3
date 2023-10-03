@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.example.appka_v3.ui.theme.Appka_V3Theme
 import com.example.appka_v3.ui.theme.screens.DetailScreen
+import com.example.appka_v3.ui.theme.screens.HackathonScreen
 import com.example.appka_v3.ui.theme.screens.HomeScreen
 import com.example.appka_v3.ui.theme.screens.SettingsScreen
 import com.example.appka_v3.ui.theme.screens.UpdateScreen
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("settings") {
                             SettingsScreen(onClick = {
-                                navController.navigate("updates")
+                                navController.navigate(it)
                             })
                         }
                         composable("updates"){
@@ -61,6 +62,14 @@ class MainActivity : ComponentActivity() {
                                     route = it,
                                     navOptions = navOptions {
                                         popUpTo("settings") { inclusive = true }
+                                    })
+                            })
+                        }
+                        composable("hackathon"){
+                            HackathonScreen(onClick = {
+                                navController.navigate(route = it,
+                                    navOptions = navOptions {
+                                        popUpTo("home") { inclusive = true }
                                     })
                             })
                         }
